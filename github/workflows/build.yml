@@ -1,0 +1,36 @@
+name: Build Flutter APK
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v3
+        with:
+          flutter-version: '3.x'
+          channel: 'stable'
+
+      - name: Create Flutter Project Structure
+        run: |
+          flutter create . --org com.digitalmohalla --project-name digital_mohalla
+
+      - name: Build Debug APK
+        run: flutter build apk --debug
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: digital-mohalla-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          
