@@ -1,0 +1,656 @@
+Import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const DigitalMohallaApp());
+}
+
+class DigitalMohallaApp extends StatelessWidget {
+  const DigitalMohallaApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Digital Mohalla',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        scaffoldBackgroundColor: const Color(0xFFF7F9F8),
+        fontFamily: 'Roboto',
+      ),
+      home: const SplashScreen(),
+    );
+  }
+}
+
+// =========================================================================
+// PAGE 1: SPLASH / WELCOME SCREEN CODE
+// =========================================================================
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFE8F5E9),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.mosque, color: Color(0xFF0C4B2E), size: 60),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Noori Jama Masjid',
+                    style: TextStyle(
+                      color: Color(0xFF0C4B2E),
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text('— ', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                      Text('Digital Mohalla', style: TextStyle(color: Colors.grey, fontSize: 13, letterSpacing: 1.2)),
+                      Text(' —', style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Apna Gaon, Apna Masjid,\nApni Zimmedari, Apna Saath',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      height: 1.4,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'Ek Behtar Mohalla, Ek Behtar Mustaqbil',
+                    style: TextStyle(
+                      color: Color(0xFF0C4B2E),
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: const [
+                    SplashFeatureItem(icon: Icons.group, label: 'Connected\nCommunity'),
+                    SplashFeatureItem(icon: Icons.volunteer_activism, label: 'Easy\nContributions'),
+                    SplashFeatureItem(icon: Icons.description, label: 'Transparent\nRecords'),
+                    SplashFeatureItem(icon: Icons.verified_user, label: 'Trusted\nManagement'),
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFF0C4B2E), Color(0xFF1B7A49)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Column(
+                      children: [
+                        const Text(
+                          '✨ Milkar Banayein – Saaf, Sundar aur Samriddh Mohalla',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.w500),
+                        ),
+                        const SizedBox(height: 12),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: const Color(0xFF0C4B2E),
+                            minimumSize: const Size(double.infinity, 45),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const LoginScreen()),
+                            );
+                          },
+                          child: const Text('Get Started', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Noori Jama Masjid Digital Mohalla App',
+                    style: TextStyle(color: Colors.grey, fontSize: 9),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SplashFeatureItem extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  const SplashFeatureItem({super.key, required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: const Color(0xFFF1F8F5),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.green.shade100),
+          ),
+          child: Icon(icon, color: const Color(0xFF0C4B2E), size: 20),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          label,
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 9, color: Colors.black54, height: 1.2, fontWeight: FontWeight.w500),
+        ),
+      ],
+    );
+  }
+}
+
+// =========================================================================
+// PAGE 2: LOGIN SCREEN CODE
+// =========================================================================
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF4F8F5),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFE8F5E9),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(Icons.mosque, color: Color(0xFF0C4B2E), size: 45),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Noori Jama Masjid',
+                  style: TextStyle(color: Color(0xFF0C4B2E), fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const Text(
+                  '— Digital Mohalla —',
+                  style: TextStyle(color: Colors.grey, fontSize: 11),
+                ),
+                const SizedBox(height: 6),
+                const Text(
+                  'Apna Gaon, Apna Masjid,\nApni Zimmedari, Apna Saath',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black87, fontSize: 11, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(height: 4),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade50,
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.green.shade100),
+                  ),
+                  child: const Text(
+                    '👥 Ek Behtar Mohalla, Ek Behtar Mustaqbil',
+                    style: TextStyle(color: Color(0xFF0C4B2E), fontSize: 10, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 10, spreadRadius: 2),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: const [
+                          CircleAvatar(
+                            radius: 16,
+                            backgroundColor: Color(0xFFE8F5E9),
+                            child: Icon(Icons.person_outline, color: Color(0xFF0C4B2E), size: 18),
+                          ),
+                          SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Login', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                              Text('Login to continue', style: TextStyle(color: Colors.grey, fontSize: 10)),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.grey.shade300),
+                        ),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.phone_outlined, color: Colors.grey, size: 18),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: 'Mobile Number',
+                                  hintStyle: TextStyle(color: Colors.grey, fontSize: 12),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.grey.shade300),
+                        ),
+                        child: Row(
+                          children: const [
+                            Icon(Icons.lock_outline, color: Colors.grey, size: 18),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: TextField(
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  hintText: 'Password',
+                                  hintStyle: TextStyle(color: Colors.grey, fontSize: 12),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                            Icon(Icons.visibility_off_outlined, color: Colors.grey, size: 18),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          'Forgot Password?',
+                          style: TextStyle(color: Colors.green.shade700, fontSize: 11, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF0C4B2E),
+                          minimumSize: const Size(double.infinity, 45),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text('Login', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
+                            SizedBox(width: 8),
+                            Icon(Icons.arrow_forward, color: Colors.white, size: 16),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Row(
+                        children: const [
+                          Expanded(child: Divider(color: Colors.grey)),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: Text('or', style: TextStyle(color: Colors.grey, fontSize: 11)),
+                          ),
+                          Expanded(child: Divider(color: Colors.grey)),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(color: Colors.green.shade300),
+                          minimumSize: const Size(double.infinity, 42),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(Icons.verified_user_outlined, color: Color(0xFF0C4B2E), size: 16),
+                            SizedBox(width: 8),
+                            Text('Login with Authorised ID', style: TextStyle(color: Color(0xFF0C4B2E), fontWeight: FontWeight.bold, fontSize: 12)),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text('New here? ', style: TextStyle(color: Colors.grey, fontSize: 11)),
+                            Text('Register Now', style: TextStyle(color: Colors.green.shade700, fontWeight: FontWeight.bold, fontSize: 11)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: const [
+                    LoginFeatureCard(icon: Icons.group, title: 'Connected\nCommunity', desc: 'Stay connected and\ninformed with your\ncommunity.'),
+                    LoginFeatureCard(icon: Icons.volunteer_activism, title: 'Easy\nContributions', desc: 'Contribute easily and\nsecurely for a better\ntomorrow.'),
+                    LoginFeatureCard(icon: Icons.verified_user, title: 'Secure &\nTrusted', desc: 'Your data and\ncontributions are\nsafe with us.'),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                const Text('❤️ Thank you for being a part of our community', style: TextStyle(color: Colors.grey, fontSize: 10)),
+                const Text('Version 1.0.0', style: TextStyle(color: Colors.grey, fontSize: 9)),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoginFeatureCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String desc;
+  const LoginFeatureCard({super.key, required this.icon, required this.title, required this.desc});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 105,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 4)],
+      ),
+      child: Column(
+        children: [
+          CircleAvatar(
+            backgroundColor: const Color(0xFFE8F5E9),
+            radius: 16,
+            child: Icon(icon, color: const Color(0xFF0C4B2E), size: 16),
+          ),
+          const SizedBox(height: 4),
+          Text(title, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 9, height: 1.1)),
+          const SizedBox(height: 2),
+          Text(desc, textAlign: TextAlign.center, style: const TextStyle(color: Colors.grey, fontSize: 7, height: 1.1)),
+        ],
+      ),
+    );
+  }
+}
+
+// =========================================================================
+// BOTTOM NAVIGATION CONTROLLER CODE (Dashboard & Members Container)
+// =========================================================================
+class MainNavigationScreen extends StatefulWidget {
+  const MainNavigationScreen({super.key});
+
+  @override
+  State<MainNavigationScreen> createState() => _MainNavigationScreenState();
+}
+
+class _MainNavigationScreenState extends State<MainNavigationScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    const DashboardScreen(),
+    const MembersScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        selectedItemColor: const Color(0xFF0C4B2E),
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            label: 'Dashboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'Members',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// =========================================================================
+// PAGE 3: DASHBOARD SCREEN CODE
+// =========================================================================
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF7F9F8),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF0C4B2E),
+        title: const Text('Digital Mohalla - Dashboard', style: TextStyle(fontSize: 16)),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF0C4B2E), Color(0xFF1B7A49)],
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                children: const [
+                  CircleAvatar(
+                    radius: 24,
+                    backgroundColor: Colors.white,
+                    child: Icon(Icons.mosque, color: Color(0xFF0C4B2E), size: 28),
+                  ),
+                  SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Khushamdeed, Member!',
+                          style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'Noori Jama Masjid Committee',
+                          style: TextStyle(color: Colors.white70, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Quick Actions',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF0C4B2E)),
+            ),
+            const SizedBox(height: 10),
+            GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 2.5,
+              children: const [
+                DashboardCard(icon: Icons.volunteer_activism, title: 'Contributions'),
+                DashboardCard(icon: Icons.receipt_long, title: 'Records & Funds'),
+                DashboardCard(icon: Icons.event, title: 'Announcements'),
+                DashboardCard(icon: Icons.phone_book, title: 'Committee Contacts'),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DashboardCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  const DashboardCard({super.key, required this.icon, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.08), blurRadius: 6)],
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: const Color(0xFF0C4B2E), size: 20),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              title,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Colors.black87),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// =========================================================================
+// PAGE 4: MEMBERS SCREEN CODE
+// =========================================================================
+class MembersScreen extends StatelessWidget {
+  const MembersScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF0C4B2E),
+        title: const Text('Mohalla Members', style: TextStyle(fontSize: 16)),
+      ),
+      body: ListView.builder(
+        itemCount: 5,
+        padding: const EdgeInsets.all(16),
+        itemBuilder: (context, index) => Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.05), blurRadius: 4)],
+          ),
+          child: Row(
+            children: [
+              const CircleAvatar(
+                backgroundColor: Color(0xFFE8F5E9),
+                child: Icon(Icons.person, color: Color(0xFF0C4B2E)),
+              ),
+              const SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Mohalla Member ${index + 1}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+                  const SizedBox(height: 2),
+                  const Text('Active Contributor', style: TextStyle(color: Colors.grey, fontSize: 10)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
